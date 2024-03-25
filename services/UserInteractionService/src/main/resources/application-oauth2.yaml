@@ -1,4 +1,0 @@
-spring.security.oauth2.client.registration:
-  github:
-    clientId: 49699e7a433919d47a80
-    clientSecret: 5ca36c47c96ce8bae633e5f79cec2075e4a9e7b7
