@@ -1,1 +1,7 @@
-spring.application.name=userinteraction
+spring:
+  application:
+    name: docflow
+  profiles:
+    include:
+    - 'db'
+    - 'oauth2'
