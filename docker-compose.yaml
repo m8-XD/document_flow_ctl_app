@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+
+  db:
+    image: postgres:latest
+    restart: on-failure
+    environment:
+      POSTGRES_DB: docflow
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/1.sql
+    ports:
+      - "5433:5432"
