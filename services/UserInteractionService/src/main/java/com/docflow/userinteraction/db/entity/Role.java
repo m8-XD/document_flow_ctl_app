@@ -1,4 +1,4 @@
-package com.docflow.userinteraction.db.model;
+package com.docflow.userinteraction.db.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
