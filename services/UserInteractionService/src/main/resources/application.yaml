@@ -5,3 +5,7 @@ spring:
     include:
     - 'db'
     - 'oauth2'
+
+security.bcrypt.costFactor: 4
+
+logging.level.com.docflow: DEBUG

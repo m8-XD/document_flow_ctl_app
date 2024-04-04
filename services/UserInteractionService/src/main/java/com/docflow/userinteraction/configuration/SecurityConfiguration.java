@@ -1,5 +1,6 @@
 package com.docflow.userinteraction.configuration;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -13,9 +14,11 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfiguration {
-    private final String[] allowedUrls =
-        {"/", "index.html", "public/*.html",
-            "/error", "/webjars/**", "/register"};
+    private final String[] allowedUrls = { "/", "index.html", "public/*.html",
+            "/error", "/webjars/**", "/register" };
+
+    @Value("${security.bcrypt.costFactor}")
+    private Integer COST_FACTOR;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -33,12 +36,12 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(req -> req.requestMatchers(allowedUrls).permitAll()
-                .anyRequest().authenticated()
-            )
-            .csrf(AbstractHttpConfigurer::disable)
-            .formLogin(Customizer.withDefaults())
-            .logout(l -> l
-                .logoutSuccessUrl("/").permitAll());
+                .requestMatchers(new String[]{"/admin/*"}).hasAuthority("ADMIN")
+                .anyRequest().authenticated())
+                .csrf(AbstractHttpConfigurer::disable)
+                .formLogin(Customizer.withDefaults())
+                .logout(l -> l
+                        .logoutSuccessUrl("/").permitAll());
         return http.build();
     }
 }

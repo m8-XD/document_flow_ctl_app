@@ -4,6 +4,9 @@ import com.docflow.userinteraction.db.entity.MyUserPrincipal;
 import com.docflow.userinteraction.db.entity.User;
 import com.docflow.userinteraction.db.repository.UserRepository;
 import lombok.AllArgsConstructor;
+
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,10 +21,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        User user = userRepository.findByUsername(username);
-        if (user == null) {
+        Optional<User> user = userRepository.findByUsername(username);
+        if (user.isEmpty()) {
             throw new UsernameNotFoundException(username);
         }
-        return new MyUserPrincipal(user);
+        return new MyUserPrincipal(user.get());
     }
 }
