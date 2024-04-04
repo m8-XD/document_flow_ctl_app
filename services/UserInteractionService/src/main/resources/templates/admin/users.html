@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Admin Control Panel</title>
+</head>
+
+<body>
+    <div align="center">
+        <div th:each="user : ${users}">
+                <a th:text="*{user.username}" th:href="*{'/admin/users/' + user.id}"/>
+        </div>
+    </div>
+</body>
+
+</html>
