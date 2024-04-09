@@ -9,3 +9,5 @@ spring:
 security.bcrypt.costFactor: 4
 
 logging.level.com.docflow: DEBUG
+
+data.server.port: 9000
