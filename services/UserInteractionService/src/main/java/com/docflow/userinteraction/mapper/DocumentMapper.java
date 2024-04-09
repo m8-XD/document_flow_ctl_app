@@ -19,16 +19,14 @@ public class DocumentMapper {
     KafkaService kafkaService;
 
     public Document map(DocumentCreateEditDto documentCreateEditDto) {
-       UUID documentId =  kafkaService.post(documentCreateEditDto.getData());
         return Document.builder()
                 .creator(documentCreateEditDto.getAuthorId())
-                .content_id(documentId)
                 .created_at(LocalDateTime.now())
                 .build();
     }
 
     public DocumentReadDto map(Document document) {
-        String data = kafkaService.loadPost(document.getContent_id());
+        String data = kafkaService.loadPost(document.getId());
         return DocumentReadDto.builder()
             .authorId(document.getCreator())
             .data(data)

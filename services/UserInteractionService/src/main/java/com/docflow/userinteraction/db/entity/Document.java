@@ -29,9 +29,6 @@ public class Document {
     Integer creator;
 
     @Column
-    UUID content_id;
-
-    @Column
     LocalDateTime created_at;
 
     @Column

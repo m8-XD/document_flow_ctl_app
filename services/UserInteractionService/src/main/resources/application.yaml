@@ -10,4 +10,13 @@ security.bcrypt.costFactor: 4
 
 logging.level.com.docflow: DEBUG
 
+# TODO organize everything
+
 data.server.port: 9000
+
+
+spring.kafka.bootstrap-servers: localhost:9092
+spring.kafka.consumer.group-id: main-server-consumer-group
+
+service.data.kafka.topic-to: toDataService
+service.data.kafka.topic-from: fromDataService
