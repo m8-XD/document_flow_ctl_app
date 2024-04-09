@@ -45,4 +45,9 @@ public class UserRestController {
         response.sendRedirect("/login");
         return;
     }
+
+    @GetMapping("/swagger")
+    public void redirectToSwagger(HttpServletResponse response) throws IOException {
+        response.sendRedirect("/swagger-ui.html");
+    }
 }

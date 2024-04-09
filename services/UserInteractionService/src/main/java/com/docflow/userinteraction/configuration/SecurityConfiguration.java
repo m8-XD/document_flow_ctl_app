@@ -36,7 +36,7 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(req -> req.requestMatchers(allowedUrls).permitAll()
-                .requestMatchers(new String[]{"/admin/*"}).hasAuthority("ADMIN")
+                .requestMatchers(new String[]{"/admin/*", "*/swagger-ui.html"}).hasAuthority("ADMIN")
                 .anyRequest().authenticated())
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(Customizer.withDefaults())
