@@ -42,8 +42,5 @@ public class User {
     LocalDateTime created_at;
 
     @Column
-    LocalDateTime updated_at;
-
-    @Column
     LocalDateTime deleted_at;
 }

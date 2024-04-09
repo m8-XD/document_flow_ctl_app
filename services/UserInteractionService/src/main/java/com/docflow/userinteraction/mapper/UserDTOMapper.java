@@ -22,7 +22,6 @@ public class UserDTOMapper {
             .username(from.getUsername())
             .password(passwordEncoder.encode(from.getPassword()))
             .role(ERole.USER)
-            .created_at(LocalDateTime.now())
             .build();
     }
 

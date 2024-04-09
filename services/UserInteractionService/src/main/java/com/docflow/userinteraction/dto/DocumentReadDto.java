@@ -9,9 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class DataDto {
+public class DocumentReadDto {
 
-    String header;
-    String description;
-    String body;
+    Integer authorId;
+    String data;
 }
