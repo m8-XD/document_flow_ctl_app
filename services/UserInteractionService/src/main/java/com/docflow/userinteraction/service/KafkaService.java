@@ -7,6 +7,8 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import com.docflow.userinteraction.utils.KafkaDataResolver;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,6 +21,7 @@ public class KafkaService {
     private String dataToKafkaTopicName;
 
     private final KafkaTemplate<String, String> kafkaTemplate;
+    private final KafkaDataResolver kafkaDataResolver;
 
     public void post(String data) {
         sendMessage(dataToKafkaTopicName, data);
@@ -36,9 +39,8 @@ public class KafkaService {
         kafkaTemplate.send(topic, message);
     }
 
-    // TODO change ${service.data.kafka.topic-to} to ${service.data.kafka.topic-from}
-    @KafkaListener(topics = "${service.data.kafka.topic-to}", groupId = "${spring.kafka.consumer.group-id}")
+    @KafkaListener(topics = "${service.data.kafka.topic-from}", groupId = "${spring.kafka.consumer.group-id}")
     private void listen(String message) {
-        log.info("got the message: " + message);
+        kafkaDataResolver.processMessage(message);
     }
 }
