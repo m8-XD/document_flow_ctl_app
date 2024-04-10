@@ -29,12 +29,13 @@ public class KafkaDataResolver {
 
     public void processMessage(String message) {
         LinkedHashMap<String, Object> parsedJSON;
-		try {
-			parsedJSON = new JSONParser(message).parseObject();
-		} catch (ParseException e) {
-            log.info("error while parsing json: " + message);
+        try {
+            parsedJSON = new JSONParser(message).parseObject();
+        } catch (ParseException e) {
+            log.warn("error while parsing json posted to kafka by data service: "
+                    + message);
             return;
-		}
+        }
         var json = new JSONObject(parsedJSON);
         var key = UUID.fromString(json.get("key").toString());
         listeners.get(key).complete(json);

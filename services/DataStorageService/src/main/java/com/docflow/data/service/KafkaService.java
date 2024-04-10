@@ -1,11 +1,12 @@
-package com.docflow.userinteraction.service;
+package com.docflow.data.service;
+
+
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
-import com.docflow.userinteraction.utils.KafkaDataResolver;
 
 import lombok.RequiredArgsConstructor;
 
@@ -13,11 +14,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class KafkaService {
 
-    @Value("${service.data.kafka.topic-to}")
+    @Value("${service.data.kafka.topic-from}")
     private String dataToKafkaTopicName;
 
+    private final DataService dataService;
+
     private final KafkaTemplate<String, String> kafkaTemplate;
-    private final KafkaDataResolver kafkaDataResolver;
 
     public void post(String data) {
         sendMessage(dataToKafkaTopicName, data);
@@ -27,8 +29,7 @@ public class KafkaService {
         kafkaTemplate.send(topic, message);
     }
 
-    @KafkaListener(topics = "${service.data.kafka.topic-from}", groupId = "${spring.kafka.consumer.group-id}")
+    @KafkaListener(topics = "${service.data.kafka.topic-to}", groupId = "${spring.kafka.consumer.group-id}")
     private void listen(String message) {
-        kafkaDataResolver.processMessage(message);
     }
 }

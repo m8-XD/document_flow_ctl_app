@@ -1,0 +1,18 @@
+spring.application.name: data
+
+spring.kafka:
+  bootstrap-servers: localhost:9092
+  consumer.group-id: main-server-consumer-group
+
+service.data.kafka:
+  topic-to: 'toDataService'
+  topic-from: 'fromDataService'
+
+
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: document_db
+

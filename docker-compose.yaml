@@ -49,8 +49,14 @@ services:
     image: mongo:6-jammy
     container_name: mongo_db
     restart: on-failure
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongo
+      MONGO_INITDB_ROOT_PASSWORD: mongo
+      MONGO_INITDB_DATABASE: document_db
     ports:
       - '27017:27017'
+    volumes:
+      - ./mongo/init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
 
   elasticsearch:
     image: elasticsearch:8.13.0
