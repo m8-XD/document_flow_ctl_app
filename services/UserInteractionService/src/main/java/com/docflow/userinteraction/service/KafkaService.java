@@ -7,26 +7,38 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
+@Slf4j
 public class KafkaService {
 
-    KafkaTemplate<String, String> kafkaTemplate;
-
     @Value("${service.data.kafka.topic-to}")
-    String dataToKafkaTopicName;
+    private String dataToKafkaTopicName;
+
+    private final KafkaTemplate<String, String> kafkaTemplate;
 
     public void post(String data) {
         sendMessage(dataToKafkaTopicName, data);
+    }
+
+    public String loadPost(UUID id) {
+        // TODO
+        // make rest request for fetching the data
+        // listend from kafka for that data
+        // return that data
+        throw new UnsupportedOperationException();
     }
 
     private void sendMessage(String topic, String message) {
         kafkaTemplate.send(topic, message);
     }
 
-    @KafkaListener(topics = "${service.data.kafka.topic-from}", groupId = "${main-server-consumer-group}")
+    // TODO change ${service.data.kafka.topic-to} to ${service.data.kafka.topic-from}
+    @KafkaListener(topics = "${service.data.kafka.topic-to}", groupId = "${spring.kafka.consumer.group-id}")
     private void listen(String message) {
+        log.info("got the message: " + message);
     }
 }

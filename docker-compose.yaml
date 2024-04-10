@@ -11,12 +11,14 @@ services:
       POSTGRES_PASSWORD: postgres
     volumes:
       - ./sql/init.sql:/docker-entrypoint-initdb.d/1.sql
+      - ./sql/data.sql:/docker-entrypoint-initdb.d/2.sql
     ports:
       - "5433:5432"
   
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
     container_name: zookeeper
+    restart: on-failure
     environment:
       ZOOKEEPER_SERVER_ID: 1
       ZOOKEEPER_CLIENT_PORT: 2181
@@ -27,6 +29,7 @@ services:
   kafka:
     image: confluentinc/cp-kafka:latest
     container_name: kafka
+    restart: on-failure
     ports:
       - "9092:9092"
     depends_on:
@@ -44,12 +47,15 @@ services:
 
   mongo_db:
     image: mongo:6-jammy
+    container_name: mongo_db
+    restart: on-failure
     ports:
       - '27017:27017'
 
   elasticsearch:
     image: elasticsearch:8.13.0
     container_name: elasticsearch
+    restart: on-failure
     environment:
       - cluster.name=document-cluster
       - bootstrap.memory_lock=true

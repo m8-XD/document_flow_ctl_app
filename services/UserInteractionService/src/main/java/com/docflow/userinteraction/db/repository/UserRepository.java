@@ -34,4 +34,7 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     @Modifying
     @Query("UPDATE User u SET u.role = 'ADMIN' WHERE u.id = :id")
     void makeAdmin(UUID id);
+
+    @Query("SELECT u.id FROM User u WHERE u.username = :username AND u.deleted_at IS NULL")
+    UUID getUserIdByUsername(String username);
 }

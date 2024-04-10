@@ -26,7 +26,7 @@ public class Document {
     UUID id;
 
     @Column
-    Integer creator;
+    UUID creator;
 
     @Column
     LocalDateTime created_at;

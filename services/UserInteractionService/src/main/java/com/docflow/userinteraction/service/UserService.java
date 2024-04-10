@@ -9,6 +9,7 @@ import com.docflow.userinteraction.mapper.UserDTOMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.apache.kafka.clients.admin.UserScramCredentialUpsertion;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -41,6 +42,10 @@ public class UserService {
         user.setCreated_at(LocalDateTime.now());
         User newUser = userRepository.save(user);
         return Optional.of(userDTOMapper.map(newUser));
+    }
+
+    public UUID getUserIdByUsername(String username) {
+        return userRepository.getUserIdByUsername(username);
     }
 
     public List<UserReadDto> getAllUsers() {

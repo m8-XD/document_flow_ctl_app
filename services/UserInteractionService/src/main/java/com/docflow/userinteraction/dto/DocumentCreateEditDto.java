@@ -1,6 +1,7 @@
 package com.docflow.userinteraction.dto;
 
 import java.util.Map;
+import java.util.UUID;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,6 +14,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DocumentCreateEditDto {
     
-    Integer authorId;
+    UUID authorId;
     Map<String, ?> data;
 }
