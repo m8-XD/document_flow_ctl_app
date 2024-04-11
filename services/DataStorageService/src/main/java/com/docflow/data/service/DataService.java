@@ -5,7 +5,11 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
-import com.docflow.data.db.repository.DocumentRepository;
+import com.docflow.data.db.entity.Document;
+import com.docflow.data.db.repository.DataRepository;
+import com.docflow.data.dto.DocumentDto;
+import com.docflow.data.es.repository.ElasticRepository;
+import com.docflow.data.mapper.DocumentMapper;
 
 import lombok.AllArgsConstructor;
 
@@ -13,15 +17,18 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class DataService {
 
-    DocumentRepository documentRepository;
+    ElasticRepository elasticRepository;
+    DataRepository dataRepository;
+    DocumentMapper documentMapper;
 
-    public void save() {
-        //TODO save with mongo
-        documentRepository.save();
+    public void save(Document document) {
+        dataRepository.save(document);
     }
 
-    public void getDocumentById(UUID id) {
-        // TODO search data by id using mongo
+    public DocumentDto getDocumentById(UUID id) {
+        return documentMapper
+            .map(dataRepository.findById(id)
+                .orElse(new Document()));
     }
 
     public void searchAllWith(List<String> wordList) {

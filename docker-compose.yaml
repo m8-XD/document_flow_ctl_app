@@ -44,7 +44,7 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
 
-
+  # sudo docker exec -it mongo_db mongosh -u mongo -p mongo document_db
   mongo_db:
     image: mongo:6-jammy
     container_name: mongo_db
@@ -58,17 +58,44 @@ services:
     volumes:
       - ./mongo/init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
 
-  elasticsearch:
-    image: elasticsearch:8.13.0
-    container_name: elasticsearch
-    restart: on-failure
+  elastic:
+    image: elasticsearch:7.10.1
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1000m"
+        max-file: "10"
+    container_name: elastic
     environment:
-      - cluster.name=document-cluster
+      - discovery.type=single-node
+      - node.name=odfe-node
+      - discovery.seed_hosts=odfe-node
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms4096m -Xmx4096m"
     ulimits:
       memlock:
         soft: -1
         hard: -1
     ports:
-      - 9200:9200
+      - "9200:9200"
+      - "9600:9600"
+  # logstash:
+  #   user: root
+  #   image: logstash:7.17.20
+  #   logging:
+  #     driver: "json-file"
+  #     options:
+  #       max-size: "100m"
+  #       max-file: "3"
+  #   ports:
+  #     - "5044:5044"
+  #   depends_on:
+  #     - mongo_db
+  #     - elastic
+  #   environment:
+  #     - PIPELINE_WORKERS=1
+  #     - PIPELINE_BATCH_SIZE=125
+  #     - PIPELINE_BATCH_DELAY=50
+  #   volumes:
+  #     - ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf

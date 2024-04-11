@@ -1,0 +1,12 @@
+/home/m8/personal/document_flow_ctl_app/services/DataStorageService/src/main/java/com/docflow/data/service/KafkaService.java
+/home/m8/personal/document_flow_ctl_app/services/DataStorageService/src/main/java/com/docflow/data/rest/DataRestController.java
+/home/m8/personal/document_flow_ctl_app/services/DataStorageService/src/main/java/com/docflow/data/configuration/KafkaConfig.java
+/home/m8/personal/document_flow_ctl_app/services/DataStorageService/src/main/java/com/docflow/data/DataApplication.java
+/home/m8/personal/document_flow_ctl_app/services/DataStorageService/src/main/java/com/docflow/data/db/entity/Document.java
+/home/m8/personal/document_flow_ctl_app/services/DataStorageService/src/main/java/com/docflow/data/dto/DocumentDto.java
+/home/m8/personal/document_flow_ctl_app/services/DataStorageService/src/main/java/com/docflow/data/mapper/DocumentMapper.java
+/home/m8/personal/document_flow_ctl_app/services/DataStorageService/src/main/java/com/docflow/data/service/DataService.java
+/home/m8/personal/document_flow_ctl_app/services/DataStorageService/src/main/java/com/docflow/data/es/service/ElasticService.java
+/home/m8/personal/document_flow_ctl_app/services/DataStorageService/src/main/java/com/docflow/data/db/repository/DataRepository.java
+/home/m8/personal/document_flow_ctl_app/services/DataStorageService/src/main/java/com/docflow/data/es/repository/ElasticRepository.java
+/home/m8/personal/document_flow_ctl_app/services/DataStorageService/src/main/java/com/docflow/data/configuration/ElasticConfig.java

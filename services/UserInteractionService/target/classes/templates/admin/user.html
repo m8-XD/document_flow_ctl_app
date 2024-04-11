@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Edit User</title>
+</head>
+
+<body>
+    <div align="center">
+        <div th:text="${user.username}"></div>
+        <br>
+        <a th:text="delete" th:href="${'/admin/users/' + user.id + '/delete'}" />
+            <a th:if="${user.role.name().equals('USER')}" 
+                th:href="${'/admin/users/' + user.id + '/changerole'}">make Admin</a>
+            <a th:unless="${user.role.name().equals('USER')}" 
+                th:href="${'/admin/users/' + user.id + '/changerole'}">make User</a>
+        <br>
+        <a href="/admin/users">Show all users</a>
+    </div>
+</body>
+
+</html>
