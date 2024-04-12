@@ -1,12 +1,14 @@
 package com.docflow.userinteraction.service;
 
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
 import com.docflow.userinteraction.db.entity.Document;
 import com.docflow.userinteraction.db.repository.DocumentRepository;
 import com.docflow.userinteraction.dto.DocumentCreateEditDto;
+import com.docflow.userinteraction.dto.DocumentReadDto;
 import com.docflow.userinteraction.mapper.DocumentMapper;
 
 import lombok.AllArgsConstructor;
@@ -29,5 +31,11 @@ public class DocumentService {
         json.appendField("UUID", document.getId().toString());
         log.info("sending json: " + json.toString());
         kafkaService.post(json.toString());
+    }
+
+    public DocumentReadDto loadDocument(UUID id) {
+        // TODO implement
+        throw new UnsupportedOperationException();
+
     }
 }

@@ -1,5 +1,8 @@
 package com.docflow.userinteraction.service;
 
+import java.util.Map;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -21,6 +24,11 @@ public class KafkaService {
 
     public void post(String data) {
         sendMessage(dataToKafkaTopicName, data);
+    }
+
+    public String loadPost(UUID id) {
+        //TODO implement it
+        throw new UnsupportedOperationException();
     }
 
     private void sendMessage(String topic, String message) {

@@ -15,5 +15,7 @@ import lombok.NoArgsConstructor;
 public class DocumentCreateEditDto {
     
     UUID authorId;
+    String title;
+    String desc;
     Map<String, ?> data;
 }
